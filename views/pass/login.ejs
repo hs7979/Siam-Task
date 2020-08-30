@@ -1,0 +1,12 @@
+<%- include("../partials/header") %>
+<div style="position: relative;top:40px;" class="container">
+<h1 style="text-align: center;color:azure">Login</h1>
+<form class="form-signin" action="/login" method="POST">
+    <input class="form-control" type="text" name="username" placeholder="Username"><br>
+    <input class="form-control" type="password" name="password" placeholder="Password"><br>
+    <input class="btn btn-lg btn-success btn-block"type="submit"><br>
+    <hr>
+    <a class="btn btn-lg btn-warning btn-block" href="/signup">New User Here!</a>
+</form>
+</div>
+<%- include("../partials/footer") %>

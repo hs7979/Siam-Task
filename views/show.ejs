@@ -1,0 +1,48 @@
+<%- include("partials/header") %>
+<div style="position: relative;top:50px;" >
+    <div class="container" >
+        <div class="col-md-6" >
+            <div class="thumbnail">
+                <img class="image-responsive" src="<%=showt.image%> " width="100%" height="500px">
+            </div>
+            <div class="well">
+                <h4>Description:</h4>
+                <p>
+                    <%=showt.content%>
+                </p>
+            </div>
+            <hr>
+            <div class="well" >
+                    <form class="form-inline" action="/tasks/<%=showt._id%>/response" method="POST">
+                        <input class="form-control" type="text" name="response[query]" placeholder="Add a Response">
+                        <input class="btn btn-primary" type="submit">
+                    </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="caption-full">
+                <h4><%=showt.title %></h4>
+                <h4 >Author:<%=showt.author.username%></h4>
+                <h4>Designation:<%=showt.post%></h4>
+                <h6>Created:<%=showt.created.toDateString()%></h6>
+            </div>
+            <hr>
+            <h4>Responses:</h4>
+        </div>
+        <div class="col-md-4">
+            <% showt.responses.reverse().forEach(function(comment){ %>
+                <div class="well" >
+                        <strong><%= comment.author.username%></strong>
+                        <p class="pull-right"><%=comment.author.created.toLocaleString()%></p>
+                        <hr>
+                        <p><%= comment.query %></p>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+    
+    <br>
+    <br>
+    <br>
+</div>
+<%- include("partials/footer") %>

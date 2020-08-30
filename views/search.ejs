@@ -1,0 +1,23 @@
+<%- include("partials/header") %>
+<div style="position: relative;top:50px;" class="container">
+<h1>Search Results:</h1>
+<div class="row text-center" style="display:flex; flex-wrap: wrap;">
+    <% var c=0; %>
+    <% foundtask.forEach(function(t){ %>
+    <div class="col-md-3" >
+      <div class="thumbnail" style="background-color: rgb(237, 92, 203); " >
+        <p>
+            Title:<%= t.title %><br>
+            Author:<%= t.author.username%><br>
+            Created:<%= t.created.toDateString() %><br>
+            <a class="btn btn-info" href="/tasks/<%=t._id%>">MORE</a>
+        </p>
+      </div>
+    </div>
+    <% c=c+1%>
+    <%  }) %>
+    
+  </div>
+  <h4><%=c%> Result(s) found</h4>
+</div>
+<%- include("partials/footer") %>
