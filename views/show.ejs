@@ -12,12 +12,6 @@
                 </p>
             </div>
             <hr>
-            <div class="well" >
-                    <form class="form-inline" action="/tasks/<%=showt._id%>/response" method="POST">
-                        <input class="form-control" type="text" name="response[query]" placeholder="Add a Response">
-                        <input class="btn btn-primary" type="submit">
-                    </form>
-            </div>
         </div>
         <div class="col-md-6">
             <div class="caption-full">
@@ -27,18 +21,20 @@
                 <h6>Created:<%=showt.created.toDateString()%></h6>
             </div>
             <hr>
-            <h4>Responses:</h4>
+            <p> Acknowledge When Completed Task!</p>
+            <form action="/completed/<%=showt._id%>" method="POST">
+                <button type="submit">Completed!</button>
+            </form>
+            <br>
+            <p>List of Completed:</>
+            <ul>
+                <%showt.compT.forEach(function(name){%>
+                    <li><%=name.username%></li>
+                <%})%>
+            </ul>
+            <a href="/edit/list/<%=showt._id%>">Edit List</a>
         </div>
-        <div class="col-md-4">
-            <% showt.responses.reverse().forEach(function(comment){ %>
-                <div class="well" >
-                        <strong><%= comment.author.username%></strong>
-                        <p class="pull-right"><%=comment.author.created.toLocaleString()%></p>
-                        <hr>
-                        <p><%= comment.query %></p>
-                </div>
-            <% }) %>
-        </div>
+        
     </div>
     
     <br>

@@ -1,17 +1,19 @@
-var express = require("express"),
-    mongoose = require("mongoose"),
-    app = express(),
-    bodyParser = require("body-parser"),
-    Task = require("./models/task"),
-    response = require("./models/response"),
-    passport = require("passport"),
-    LocalStrategy = require("passport-local"),
-    user = require("./models/user");
+var express        = require("express"),
+    mongoose       = require("mongoose"),
+    app            = express(),
+    bodyParser     = require("body-parser"),
+    Task           = require("./models/task"),
+    passport       = require("passport"),
+    LocalStrategy  = require("passport-local"),
+    details        = require("./models/details"),
+    methodOverride = require("method-override"),
+    user           = require("./models/user");
 
-    mongoose.connect("mongodb://localhost/siamtaskv4",{ useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect("mongodb://localhost/siamtaskv4new",{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false });
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/public'));
+app.use(methodOverride("_method"));
 //======================
 //passport configuration
 //======================
@@ -49,15 +51,16 @@ app.get("/tasks",isLoggedIn,function(req,res){
 //=========
 //New tasks
 //=========
-app.post("/tasks",isLoggedIn,function(req,res){
-    if(req.body.post=="Board Member")
+app.post("/tasks",isLoggedIn,async(req,res)=>{
+    var J= await details.findById(req.user._id);
+    if(J.board==true)
     {
         var t= req.body.title,
             a= {
                 id:req.user._id,
                 username:req.user.username
             },
-            p= req.body.post,
+            p= J.post,
             i= req.body.image,
             c= req.body.content;
         var newt = {title:t,author:a,post:p,image:i,content:c}
@@ -80,7 +83,7 @@ app.get("/tasks/new",isLoggedIn,function(req,res){
 //SHOW
 //====
 app.get("/tasks/:id",isLoggedIn,function(req,res){
-    Task.findById(req.params.id).populate("responses").exec(function(err,ftask){
+    Task.findById(req.params.id).populate("compT").exec(function(err,ftask){
         if(err){
             console.log(err);
         }else{
@@ -137,10 +140,43 @@ app.post("/signup",function(req,res){
             console.log(err);
         }
         passport.authenticate("local")(req,res,function(){
-            res.redirect("/tasks");
+            res.redirect("/details");
         });
     });
 });
+app.get("/details",isLoggedIn,(req,res)=>{
+    res.render("details");
+});
+app.post("/details",isLoggedIn,(req,res)=>{
+    var RegNo = req.body.RegNo,
+        DOB = req.body.DOB,
+        board= req.body.board,
+        post = req.body.post,
+        email = req.body.email,
+        c = req.body.contact,
+        i =req.body.insta,
+        l = req.body.linkedIn,
+        g = req.body.github,
+        owner={
+            id:req.user._id,
+            username:req.user.username
+        };
+    if(board == "1")
+    {
+        board=true;
+    }else{
+        board=false;
+    }
+    var d={_id:req.user._id,RegNo:RegNo,DOB:DOB,board:board,post:post,email:email,contact:c,insta:i,github:g,linkedIn:l,owner:owner};
+    details.create(d,function(err,details){
+        if (err){
+            console.log(err);
+        }
+        else{
+            res.redirect("/tasks");
+        }
+    });
+})
 //Login
 app.get("/login",function(req,res){
     res.render("pass/login");
@@ -156,6 +192,75 @@ app.get("/logout",function(req,res){
     req.logout();
     res.redirect("/");
 });
+//===========
+//Profile
+//===========
+app.get("/profile/:id",isLoggedIn,async (req,res)=>{
+    const use = await user.findById(req.params.id);
+    const Det = await details.findById(req.params.id);
+    res.render("profile",{Det,use});
+});
+app.get("/profile/edit/:id",isLoggedIn,async (req,res)=>{
+    if (req.user._id == req.params.id){
+        const Det = await details.findById(req.params.id);
+        res.render("editprofile",{Det});
+    }else{
+        const u = await user.findById(req.params.id);
+        res.send("You are not logged in as:"+u.username);
+    }
+});
+app.patch("/profile/edit/:id",isLoggedIn,(req,res)=>{
+    var RegNo = req.body.RegNo,
+        DOB = req.body.DOB,
+        board= req.body.board,
+        post = req.body.post,
+        email = req.body.email,
+        c = req.body.contact,
+        i =req.body.insta,
+        l = req.body.linkedIn,
+        g = req.body.github,
+        owner={
+            id:req.user._id,
+            username:req.user.username
+        };
+    if(board == "1")
+    {
+        board=true;
+    }else{
+        board=false;
+    }
+    var d={_id:req.user._id,RegNo:RegNo,DOB:DOB,board:board,post:post,email:email,contact:c,insta:i,github:g,linkedIn:l,owner:owner};
+    details.findOneAndUpdate({_id:req.params.id},d,function(err,details){
+        if (err){
+            console.log(err);
+        }
+        else{
+            res.redirect("/profile/"+req.params.id);
+        }
+    });
+})
+//==============
+// Task Holders
+//==============
+app.post("/completed/:id",isLoggedIn,async(req,res)=>{
+    var tf = await Task.findById(req.params.id);
+    var cid = req.user._id,
+        cun = req.user.username,
+        comt = {_id:cid,username:cun};
+    
+        tf.compT.push(comt);
+        tf.save();
+        res.redirect("/tasks/"+req.params.id);
+})
+app.get("/edit/list/:id",isLoggedIn,(req,res)=>{
+    Task.findById(req.params.id).populate("compT").exec(function(err,t){
+        if(err){
+            console.log(err);
+        }else{
+            res.render("list",{t})
+        }
+    })
+})
 //middleware
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){

@@ -14,10 +14,13 @@ var taskSchema = new mongoose.Schema({
     image:{type:String , default:"https://cdn-images-1.medium.com/max/660/1*oIiXHYa4LnwuaDSKhOZvfQ@2x.png"},
     content:String,
     created:{type:Date , default:Date.now},
-    responses:[
+    compT:[
         {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"response"
+            _id:{
+                type:mongoose.Schema.Types.ObjectId,
+                ref:"user"
+            },
+            username:String
         }
     ]
 });

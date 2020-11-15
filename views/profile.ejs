@@ -1,0 +1,22 @@
+<%- include("partials/header") %>
+<div style="position: relative;top:50px;">
+    <h1 style="text-align:center; color: azure;">Profile</h1>
+    <div class="container" >
+        <div class="row">
+            <div style="width: 30%; margin: 25px auto;">
+                <p>Name            : <%=use.username%></p>
+                <p>Registration No.: <%=Det.RegNo%></p>
+                <p>Date Of Birth   : <%=Det.DOB.toDateString()%></p>
+                <p>Position        : <%=Det.post%></p>
+                <p>Email           : <%=Det.email%></p>
+                <p>Contact No.     : <%=Det.contact%></p>
+                <p>Instagram       : <%=Det.insta%></p>
+                <p>GitHub          : <%=Det.github%></p>
+                <p>Linked In       : <%=Det.linkedIn%></p>
+                <a href="/profile/edit/<%=Det._id%>">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<%- include("partials/footer") %>
