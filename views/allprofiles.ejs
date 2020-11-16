@@ -1,0 +1,13 @@
+<%- include("partials/header") %>
+<div style="position: relative;top:50px;">
+    <h1 style="text-align:center; color: azure;">Siam Team:</h1>
+    <div class="container" >
+        <div class="row">
+            <% arr.forEach((a)=>{%>
+                <a><%=a.username%></a>
+            <%})%>
+        </div>
+    </div>
+</div>
+<br>
+<%- include("partials/footer") %>

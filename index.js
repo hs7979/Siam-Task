@@ -195,6 +195,24 @@ app.get("/logout",function(req,res){
 //===========
 //Profile
 //===========
+app.get("/profile/all",isLoggedIn,async(req,res)=>{
+    const Profs1 = await user.find({});
+    const Profs2 = await details.find({});
+    var arr = [];
+    Profs1.forEach((p1)=>{
+        Profs2.forEach((p2)=>{
+            if(p1._id==p2._id){
+                var obj={};
+                obj["_id"]=p1._id;
+                obj["username"]=p1._username;
+                obj["board"]=p2._board;
+                arr.push(obj);
+            }
+        })
+    })
+    console.log(arr);
+    res.render("allprofiles",{arr});
+})
 app.get("/profile/:id",isLoggedIn,async (req,res)=>{
     const use = await user.findById(req.params.id);
     const Det = await details.findById(req.params.id);
