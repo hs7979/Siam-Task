@@ -7,6 +7,7 @@ var express        = require("express"),
     LocalStrategy  = require("passport-local"),
     details        = require("./models/details"),
     methodOverride = require("method-override"),
+    Event          = require("./models/events"),
     user           = require("./models/user");
 
     mongoose.connect("mongodb://localhost/siamtaskv4new",{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false });
@@ -79,6 +80,41 @@ app.post("/tasks",isLoggedIn,async(req,res)=>{
 app.get("/tasks/new",isLoggedIn,function(req,res){
     res.render("new");
 });
+
+app.get("/edit/task/:id",isLoggedIn,async(req,res)=>{
+    var t = await Task.findById(req.params.id);
+    var u = await details.findById(req.user._id);
+    if(u.board==true){
+        res.render("edittasks",{t});
+    }else{
+        res.send("You are not logged in as a Board Member");
+    }
+});
+app.patch("/edit/task/:id",isLoggedIn,async(req,res)=>{
+    var J= await details.findById(req.user._id);
+    if(J.board==true)
+    {
+        var t= req.body.title,
+            a= {
+                id:req.user._id,
+                username:req.user.username
+            },
+            p= J.post,
+            i= req.body.image,
+            c= req.body.content;
+        var newt = {title:t,author:a,post:p,image:i,content:c}
+        Task.findOneAndUpdate({_id:req.params.id},newt,function(err,newtask){
+            if(err){
+                console.log(err);
+            }else{
+                res.redirect("/tasks/"+req.params.id);
+            }
+        })
+    }
+    else{
+        res.send("Only Board Members allowed to Edit task");
+    }
+})
 //====
 //SHOW
 //====
@@ -94,26 +130,26 @@ app.get("/tasks/:id",isLoggedIn,function(req,res){
 //===============
 //response routes
 //===============
-app.post("/tasks/:id/response",function(req,res){
-    Task.findById(req.params.id,function(err,task){
-        if(err){
-            console.log(err);
-        }else{
-            response.create(req.body.response,function(err,resp){
-                if(err){
-                    console.log(err);
-                }else{
-                    resp.author.id=req.user._id;
-                    resp.author.username=req.user.username;
-                    resp.save();
-                    task.responses.push(resp);
-                    task.save();
-                    res.redirect("/tasks/"+task._id);
-                }
-            })
-        }
-    })
-})
+// app.post("/tasks/:id/response",function(req,res){
+//     Task.findById(req.params.id,function(err,task){
+//         if(err){
+//             console.log(err);
+//         }else{
+//             response.create(req.body.response,function(err,resp){
+//                 if(err){
+//                     console.log(err);
+//                 }else{
+//                     resp.author.id=req.user._id;
+//                     resp.author.username=req.user.username;
+//                     resp.save();
+//                     task.responses.push(resp);
+//                     task.save();
+//                     res.redirect("/tasks/"+task._id);
+//                 }
+//             })
+//         }
+//     })
+// })
 //=============
 //Search routes
 //=============
@@ -199,18 +235,19 @@ app.get("/profile/all",isLoggedIn,async(req,res)=>{
     const Profs1 = await user.find({});
     const Profs2 = await details.find({});
     var arr = [];
-    Profs1.forEach((p1)=>{
-        Profs2.forEach((p2)=>{
-            if(p1._id==p2._id){
+    Profs1.forEach(function(p1){
+        Profs2.forEach(function(p2){
+            var a = p1._id;
+            var b = p2._id;
+            if(a==b){
                 var obj={};
                 obj["_id"]=p1._id;
-                obj["username"]=p1._username;
-                obj["board"]=p2._board;
+                obj["username"]=p1.username;
+                obj["board"]=p2.board;
                 arr.push(obj);
             }
         })
     })
-    console.log(arr);
     res.render("allprofiles",{arr});
 })
 app.get("/profile/:id",isLoggedIn,async (req,res)=>{
@@ -276,6 +313,42 @@ app.get("/edit/list/:id",isLoggedIn,(req,res)=>{
             console.log(err);
         }else{
             res.render("list",{t})
+        }
+    })
+})
+//========
+//Events
+//========
+app.get("/events",async(req,res)=>{
+    const e = await Event.find({});
+    res.render("events",{e});
+});
+app.get("/new/event",isLoggedIn,function(req,res){
+    res.render("newevent");
+})
+app.post("/new/event",isLoggedIn,(req,res)=>{
+    Event.create(req.body,function(err,e){
+        if(err){
+            console.log(err);
+        }else{
+            res.redirect("/events");
+        }
+    })
+})
+app.get("/show/event/:id",async(req,res)=>{
+    const e = await Event.findById(req.params.id);
+    res.render("showevent",{e});
+})
+app.get("/edit/event/:id",isLoggedIn,async(req,res)=>{
+    const e = await Event.findById(req.params.id);
+    res.render("editevent",{e});
+})
+app.patch("/edit/event/:id",isLoggedIn,(req,res)=>{
+    Event.findOneAndUpdate({_id:req.params.id},req.body,(err,ev)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.redirect("/events");
         }
     })
 })

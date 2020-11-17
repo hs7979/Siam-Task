@@ -1,0 +1,25 @@
+<%- include("partials/header") %>
+<div style="position: relative;top:50px;">
+    <br>
+  <div  class="container">
+        
+                <div >
+                    <img src="<%=e.image%>" width="500px">
+                </div>
+                <div >
+                    <h2><%=e.title%></h2>
+                    <p><%=e.coords%></p>
+                    <p><%= e.fee%></p>
+                    <p><%=e.edate%></p>
+                    <p><%=e.contact%></p>
+                    <p><%=e.price%></p>
+                    <p><%=e.fest%></p>
+                    <pre><p><%=e.content%></p></pre>
+                </div>
+                <a href="/edit/event/<%=e._id%>">Edit Event</a>
+  </div>
+          <br>
+          <br>
+          <br>
+</div>
+<%- include("partials/footer") %>

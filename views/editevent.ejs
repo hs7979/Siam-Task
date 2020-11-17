@@ -1,0 +1,46 @@
+<%- include("partials/header") %>
+<div style="position: relative;top:50px;">
+    <h1 style="text-align:center; color: azure;">Enter A New Task</h1>
+    <div class="container" >
+        <div class="row">
+            <div style="width: 30%; margin: 25px auto;">
+            <form action="/edit/event/<%=e._id%>?_method=patch" method="POST">
+                <hr>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="title" placeholder="Title" required value="<%=e.title%>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="image" placeholder="Image URL"value="<%=e.image%>">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" name="content" placeholder="Content Goes Here..." value="<%=e.content%>"></textarea>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="coords" placeholder="Co Ordinators" value="<%=e.coords%>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="fee" placeholder="Registration Fee" value="<%=e.fee%>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="tel" name="contact" placeholder="Contact" value="<%=e.contact%>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="edate" placeholder="Event Date(s)" value="<%=e.edate%>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="price" placeholder="Price" value="<%=e.price%>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="fest" placeholder="Fest" value="<%=e.fest%>">
+                </div>
+                <div style="align-self: center;" class="form-group">
+                    <input  class="btn btn-success btn-lg btn-block" type="submit">
+                </div>
+                <hr>
+                <br>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include("partials/footer") %>
