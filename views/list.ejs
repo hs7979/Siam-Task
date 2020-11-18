@@ -6,7 +6,11 @@
             <p> <%=t.title%> Task Completed By:</p>
             <ul>
                 <%t.compT.forEach(function(name){%>
-                    <li><%=name.username%></li>
+                    <li><%=name.username %> <%=name._id%>
+                    <form action="/edit/list/<%=t._id%>/<%=name._id%>" method="POST">
+                        <button type="submit">Remove!</button>
+                    </form>
+                    </li>
                 <%})%>
             </ul>
         </div>

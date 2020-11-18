@@ -1,3 +1,6 @@
+const { json } = require("body-parser");
+const { use } = require("passport");
+
 var express        = require("express"),
     mongoose       = require("mongoose"),
     app            = express(),
@@ -237,9 +240,7 @@ app.get("/profile/all",isLoggedIn,async(req,res)=>{
     var arr = [];
     Profs1.forEach(function(p1){
         Profs2.forEach(function(p2){
-            var a = p1._id;
-            var b = p2._id;
-            if(a==b){
+            if(p1._id.equals(p2._id)){
                 var obj={};
                 obj["_id"]=p1._id;
                 obj["username"]=p1.username;
@@ -315,6 +316,25 @@ app.get("/edit/list/:id",isLoggedIn,(req,res)=>{
             res.render("list",{t})
         }
     })
+})
+app.post("/edit/list/:tid/:uid",isLoggedIn,async(req,res)=>{
+    var J = await details.findById(req.user._id);
+    var u = await user.findById(req.params.uid);
+    var tf = await (await Task.findById(req.params.tid)).execPopulate("compT");
+    if (J.board==true){
+        var comt = {_id:u._id,username:u.username};
+        for( var i=0;i<tf.compT.length;i++){
+            if(tf.compT[i]._id.equals(comt._id))
+            {
+                var ctr = i;
+            }
+        }
+        tf.compT.splice(ctr,1);
+        tf.save();
+        res.redirect("/tasks/"+req.params.tid)
+    }else{
+        res.send("This Function is only for Board Members");
+    }
 })
 //========
 //Events

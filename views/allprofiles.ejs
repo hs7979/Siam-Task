@@ -3,9 +3,22 @@
     <h1 style="text-align:center; color: azure;">Siam Team:</h1>
     <div class="container" >
         <div class="row">
-            <% arr.forEach((a)=>{%>
-                <a><%=a.username%></a>
-            <%})%>
+            <h3>Board:</h3>
+            <ul>
+                <% arr.forEach((a)=>{%>
+                    <% if (a.board == true){%>
+                        <li><a href="/profile/<%=a._id%>"><%=a.username%></a></li>
+                    <%}%>
+                <%})%>
+            </ul>
+            <h3>Core:</h3>
+            <ul>
+                <% arr.forEach((a)=>{%>
+                    <% if (a.board == false){%>
+                        <li><a href="/profile/<%=a._id%>"><%=a.username%></a></li>
+                    <%}%>
+                <%})%>
+            </ul>
         </div>
     </div>
 </div>
