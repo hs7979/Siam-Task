@@ -3,7 +3,7 @@
     <h1 style="text-align:center; color: azure;">Profile</h1>
     <div class="container" >
         <div class="row">
-            <div style="width: 30%; margin: 25px auto;">
+            <div>
                 <p>Name            : <%=use.username%></p>
                 <p>Registration No.: <%=Det.RegNo%></p>
                 <p>Date Of Birth   : <%=Det.DOB.toDateString()%></p>
@@ -13,11 +13,12 @@
                 <p>Instagram       : <a href="<%=Det.insta%>"><%=Det.insta%></a></p>
                 <p>GitHub          : <a href="<%=Det.github%>"><%=Det.github%></a></p>
                 <p>Linked In       : <a href="<%=Det.linkedIn%>"><%=Det.linkedIn%></a></p>
-                <a href="/profile/edit/<%=Det._id%>">Edit Profile</a>
+                <a class="btn btn-outline-primary" href="/profile/edit/<%=Det._id%>">Edit Profile</a>
             </div>
-            <a href="/profile/all">View Siam Team</a>
         </div>
+        <br>
+        <a class="btn btn-outline-info" href="/profile/all">View Siam Core</a>
     </div>
 </div>
-<br>
+<br><br>
 <%- include("partials/footer") %>

@@ -1,19 +1,21 @@
 <%- include("partials/header") %>
 <div style="position: relative;top:50px;">
     <div class="container">
-        <div class="col">
-            <br>
-            <p> <%=t.title%> Task Completed By:</p>
-            <ul>
+        
+            <h3> <%=t.title%> Task Completed By:</h3><br>
+            <ol >
+                <div class="row">
                 <%t.compT.forEach(function(name){%>
-                    <li><%=name.username %> <%=name._id%>
+                    <div class="col-sm-3">
+                    <li><%=name.username %>
                     <form action="/edit/list/<%=t._id%>/<%=name._id%>" method="POST">
-                        <button type="submit">Remove!</button>
+                        <button class="btn btn-outline-danger" type="submit">Remove!</button>
                     </form>
                     </li>
+                    </div>
                 <%})%>
-            </ul>
-        </div>
+            </div>
+            </ol>
     </div>
 </div>
 

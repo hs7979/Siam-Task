@@ -3,24 +3,38 @@
     <br>
   <div  class="container">
             <% e.reverse().forEach(function(ev){ %>
-                <div class="row" >
+                <div class="row"  style="border: azure 2px solid; padding: 10px;">
                     <div class="col-sm-4">
-                        <img src="<%=ev.image%>" width="300px">
+                        <img id="shev" src="<%=ev.image%>" width="75%">
                     </div>
                     <div class="col-sm-8">
                         <h2><a href="/show/event/<%=ev._id%>"><%=ev.title%></a></h2>
-                        <p><%=ev.coords%></p>
-                        <p><%= ev.fee%></p>
-                        <p><%=ev.edate%></p>
-                        <p><%=ev.contact%></p>
-                        <p><%=ev.price%></p>
+                        <div class="row">
+                            <div class="col-sm-2" >
+                                <p>Coordinator(s) </p>
+                                <p>Entry Fee      </p>
+                                <p>Event Date     </p>
+                                <p>Contact        </p>
+                                <p>Price Money    </p>
+                            </div>
+                            <div class="col" >
+                                <p>: <%=ev.coords%></p>
+                                <p>: <%= ev.fee%></p>
+                                <p>: <%=ev.edate%></p>
+                                <p>: <%=ev.contact%></p>
+                                <p>: <%=ev.price%></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             <%  }) %>
+            <br>
+            <br>
+            <a class="btn btn-outline-primary" href="/new/event">New Event</a>
           </div>
           <br>
           <br>
           <br>
-          <a href="/new/event">New Event</a>
+          
 </div>
 <%- include("partials/footer") %>

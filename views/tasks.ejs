@@ -1,35 +1,31 @@
 <%- include("partials/header") %>
 <div style="position: relative;top:50px;">
   <div  class="container">
-    <header class="jumbotron" style="background-image:linear-gradient(to right,rgb(232, 106, 248),rgb(236, 157, 223));">
-    <div class="container">
-        <h1>Tasks Page</h1>
-        <p><a class="btn btn-primary btn-large" href="/tasks/new">Add New task</a></p>
-    </div>
-    </header>
-      <div style="width: 30%; margin: 25px auto;">
-        <form action="/search" method="POST">
-          <p>Search For a Particular Task:</p>
-          <input class="form-control" name="search" type="search" placeholder="Search via title"><br>
-          <input class="btn btn-danger btn-block"  type="submit">
-          <hr>
-          <br>
-        </form>
-      </div>
+      
         
-          <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+          <div class="row text-center" >
             <% task.reverse().forEach(function(t){ %>
-            <div class="col-md-3" >
-              <div class="thumbnail" style="background-color: rgb(237, 92, 203); " >
+            <div class="col-6 col-sm-4" >
+              <div class="thumbnail"  >
                 <p>
                     Title:<%= t.title %><br>
                     Author:<%= t.author.username%><br>
                     Created:<%= t.created.toDateString() %><br>
-                    <a class="btn btn-info"href="/tasks/<%=t._id%>">MORE</a>
+                    <a style="color:azure" href="/tasks/<%=t._id%>">MORE</a>
                 </p>
               </div>
             </div>
             <%  }) %>
+          </div>
+
+          <div style="max-width: 360px; margin: 25px auto;">
+            <form action="/search" method="POST">
+              <p>Search For a Particular Task:</p>
+              <input class="form-control" name="search" type="search" placeholder="Search via title"><br>
+              <input class="btn btn-danger btn-block"  type="submit">
+              <hr>
+              <br>
+            </form>
           </div>
           <br>
           <br>

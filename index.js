@@ -77,7 +77,8 @@ app.post("/tasks",isLoggedIn,async(req,res)=>{
         })
     }
     else{
-        res.send("Only Board Members allowed to give new task");
+        var em="Only Board Members allowed to give New task"
+        res.render("error",{em});
     }
 });
 app.get("/tasks/new",isLoggedIn,function(req,res){
@@ -90,7 +91,8 @@ app.get("/edit/task/:id",isLoggedIn,async(req,res)=>{
     if(u.board==true){
         res.render("edittasks",{t});
     }else{
-        res.send("You are not logged in as a Board Member");
+        var em="Only Board Members allowed to Edit task"
+        res.render("error",{em});
     }
 });
 app.patch("/edit/task/:id",isLoggedIn,async(req,res)=>{
@@ -115,7 +117,8 @@ app.patch("/edit/task/:id",isLoggedIn,async(req,res)=>{
         })
     }
     else{
-        res.send("Only Board Members allowed to Edit task");
+        var em="Only Board Members allowed to Edit task"
+        res.render("error",{em});
     }
 })
 //====
@@ -262,7 +265,8 @@ app.get("/profile/edit/:id",isLoggedIn,async (req,res)=>{
         res.render("editprofile",{Det});
     }else{
         const u = await user.findById(req.params.id);
-        res.send("You are not logged in as:"+u.username);
+        var em="You are not logged in as:"+u.username;
+        res.render("error",{em});
     }
 });
 app.patch("/profile/edit/:id",isLoggedIn,(req,res)=>{
@@ -333,7 +337,8 @@ app.post("/edit/list/:tid/:uid",isLoggedIn,async(req,res)=>{
         tf.save();
         res.redirect("/tasks/"+req.params.tid)
     }else{
-        res.send("This Function is only for Board Members");
+        var em="Only Board Members can edit this list"
+        res.render("error",{em});
     }
 })
 //========

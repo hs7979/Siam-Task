@@ -2,24 +2,28 @@
 <div style="position: relative;top:50px;">
     <h1 style="text-align:center; color: azure;">Siam Team:</h1>
     <div class="container" >
+        <h3>Board:</h3>
         <div class="row">
-            <h3>Board:</h3>
-            <ul>
+            
                 <% arr.forEach((a)=>{%>
                     <% if (a.board == true){%>
-                        <li><a href="/profile/<%=a._id%>"><%=a.username%></a></li>
-                    <%}%>
+                        <div class="col-4" style="margin: 2px 5px"> 
+                        <li><a style="color: azure;" href="/profile/<%=a._id%>"><%=a.username%></a></li>
+                    </div>
+                        <%}%>
                 <%})%>
-            </ul>
-            <h3>Core:</h3>
-            <ul>
+        </div><br>
+        <h3>Core:</h3>
+        <div class="row">
                 <% arr.forEach((a)=>{%>
                     <% if (a.board == false){%>
-                        <li><a href="/profile/<%=a._id%>"><%=a.username%></a></li>
+                        <div class="col-4" style="margin: 2px 5px">
+                        <li><a style="color: azure;"  href="/profile/<%=a._id%>"><%=a.username%></a></li>
+                    </div>
                     <%}%>
                 <%})%>
-            </ul>
         </div>
+        
     </div>
 </div>
 <br>

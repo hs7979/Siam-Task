@@ -1,10 +1,9 @@
 <%- include("partials/header") %>
 <div style="position: relative;top:50px;" >
     <div class="container" >
+        <div class="row">
         <div class="col-md-6" >
-            <div class="thumbnail">
-                <img class="image-responsive" src="<%=showt.image%> " width="100%" height="500px">
-            </div>
+            <img  class="timg" class="image-responsive" src="<%=showt.image%> " >
             <div class="well">
                 <h4>Description:</h4>
                 <pre><p>
@@ -12,30 +11,24 @@
                 </p></pre>
             </div>
             <hr>
-            <a href="/edit/task/<%=showt.id%>">Edit Task</a>
+            <a class="btn btn-primary" href="/edit/task/<%=showt.id%>">Edit Task</a>
         </div>
         <div class="col-md-6">
-            <div class="caption-full">
+            
                 <h4><%=showt.title %></h4>
                 <h4 >Author:<%=showt.author.username%></h4>
                 <h4>Designation:<%=showt.post%></h4>
                 <h6>Created:<%=showt.created.toDateString()%></h6>
-            </div>
             <hr>
-            <p> Acknowledge When Completed Task!</p>
+            <p> Acknowledge When Completed the Task!</p>
             <form action="/completed/<%=showt._id%>" method="POST">
-                <button type="submit">Completed!</button>
+                <button class="btn btn-outline-success" type="submit">Completed!</button>
             </form>
             <br>
-            <p>List of Completed:</>
-            <ul>
-                <%showt.compT.forEach(function(name){%>
-                    <li><%=name.username%></li>
-                <%})%>
-            </ul>
-            <a href="/edit/list/<%=showt._id%>">Edit List</a>
+            
+            <a href="/edit/list/<%=showt._id%>">View List who have comleted the Task</a>
         </div>
-        
+        </div>
     </div>
     
     <br>
