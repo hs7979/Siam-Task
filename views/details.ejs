@@ -3,11 +3,12 @@
     <h1 style="text-align:center; color: azure;">Enter User Details</h1>
     <div class="container" >
         <div class="row">
-            <div style="width: 30%; margin: 25px auto;">
+            <div style="width: 70%; margin: 25px auto;">
             <form action="/details" method="POST">
                 <hr>
                 <div class="form-group">
-                    <label>Registration Number:<input class="form-control" type="text" name="RegNo" required></label>
+                    <label>Registration Number:</label>
+                    <input class="form-control" type="text" name="RegNo" required>
                 </div>
                 <div class="form-group">
                     <label>Date Of Birth:<input class="form-control" type="date" name="DOB" required></label>
@@ -16,22 +17,27 @@
                     <label>Board(Yes/No)<input class="form-control" type="checkbox" name="board"  value="1"></label>
                 </div>
                 <div class="form-group">
-                    <label>Position<input class="form-control" type="text" name="post" required value="Core Commitee Member"></label>
+                    <label>Position</label>
+                    <input class="form-control" type="text" name="post" required value="Core Commitee Member">
                 </div>
                 <div class="form-group">
-                    <label>Email<input class="form-control" type="email" name="email" required></label>
+                    <label>Email</label>
+                    <input class="form-control" type="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label>Contact No.<input class="form-control" type="tel" name="contact" ></label>
                 </div>
                 <div class="form-group">
-                    <label>Insta Profile Link:<input class="form-control" type="text" name="insta" ></label>
+                    <label>Insta Profile Link:</label>
+                    <input class="form-control" type="text" name="insta" >
                 </div>
                 <div class="form-group">
-                    <label>Linked In Profile Link:<input class="form-control" type="text" name="linkedIn" ></label>
+                    <label>Linked In Profile Link:</label>
+                    <input class="form-control" type="text" name="linkedIn" >
                 </div>
                 <div class="form-group">
-                    <label>GitHub Profile Link:<input class="form-control" type="text" name="github" ></label>
+                    <label>GitHub Profile Link:</label>
+                    <input class="form-control" type="text" name="github" >
                 </div>
                 <div style="align-self: center;" class="form-group">
                     <input  class="btn btn-success btn-lg btn-block" type="submit">

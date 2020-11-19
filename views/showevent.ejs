@@ -2,21 +2,38 @@
 <div style="position: relative;top:50px;">
     <br>
   <div  class="container">
-        
-                <div >
-                    <img src="<%=e.image%>" width="500px">
+        <div class="row">
+                <div class="col-sm-4">
+                    <img class="timg2" src="<%=e.image%>" >
                 </div>
-                <div >
+                <div class="col-sm-8">
                     <h2><%=e.title%></h2>
-                    <p><%=e.coords%></p>
-                    <p><%= e.fee%></p>
-                    <p><%=e.edate%></p>
-                    <p><%=e.contact%></p>
-                    <p><%=e.price%></p>
-                    <p><%=e.fest%></p>
-                    <pre><p><%=e.content%></p></pre>
+                    <div class="row">
+                        <div class="col-6 col-sm-3">
+                            <p>Coordinator(s):</p>
+                            <p>Entry Fee:</p>
+                            <p>Event Date(s):</p>
+                            <p>Contact:</p>
+                            <p>Price Money:</p>
+                            <p>Fest:</p>
+                        </div>
+                        <div class="col-6 col-sm-8">
+                            <p><%=e.coords%></p>
+                            <p><%= e.fee%></p>
+                            <p><%=e.edate%></p>
+                            <p><%=e.contact%></p>
+                            <p><%=e.price%></p>
+                            <p><%=e.fest%></p>
+                        </div>
+                    </div>
                 </div>
-                <a href="/edit/event/<%=e._id%>">Edit Event</a>
+        </div>
+        <div class="well">
+            Description:
+            <pre><p><%=e.content%></p></pre>
+        </div>
+
+                <a class="btn btn-outline-warning" href="/edit/event/<%=e._id%>">Edit Event</a>
   </div>
           <br>
           <br>

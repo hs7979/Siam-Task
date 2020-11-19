@@ -1,13 +1,14 @@
 <%- include("partials/header") %>
 <div style="position: relative;top:50px;">
-    <h1 style="text-align:center; color: azure;">Enter User Details</h1>
+    <h1 style="text-align:center; color: azure;">Edit User Details</h1>
     <div class="container" >
         <div class="row">
-            <div style="width: 30%; margin: 25px auto;">
+            <div style="width: 70%; margin: 25px auto;">
             <form action="/profile/edit/<%=Det._id%>?_method=patch" method="POST">
                 <hr>
                 <div class="form-group">
-                    <label>Registration Number:<input class="form-control" type="text" name="RegNo" required value="<%=Det.RegNo%>"></label>
+                    <label>Registration Number:</label>
+                    <input class="form-control" type="text" name="RegNo" required value="<%=Det.RegNo%>">
                 </div>
                 <div class="form-group">
                     <label>Date Of Birth:<input class="form-control" type="date" name="DOB" required value="<%=Det.DOB%>"></label>
@@ -16,25 +17,30 @@
                     <label>Board(Yes/No)<input class="form-control" type="checkbox" name="board"  value="1"></label>
                 </div>
                 <div class="form-group">
-                    <label>Position<input class="form-control" type="text" name="post" required value="<%=Det.post%>"></label>
+                    <label>Position</label>
+                    <input class="form-control" type="text" name="post" required value="<%=Det.post%>">
                 </div>
                 <div class="form-group">
-                    <label>Email<input class="form-control" type="email" name="email" required value="<%=Det.email%>"></label>
+                    <label>Email</label>
+                    <input class="form-control" type="email" name="email" required value="<%=Det.email%>">
                 </div>
                 <div class="form-group">
                     <label>Contact No.<input class="form-control" type="tel" name="contact" value="<%=Det.contact%>"></label>
                 </div>
                 <div class="form-group">
-                    <label>Insta Profile Link:<input class="form-control" type="text" name="insta" value="<%=Det.insta%>"></label>
+                    <label>Insta Profile Link:</label>
+                    <input class="form-control" type="text" name="insta" value="<%=Det.insta%>">
                 </div>
                 <div class="form-group">
-                    <label>Linked In Profile Link:<input class="form-control" type="text" name="linkedIn" value="<%=Det.linkedIn%>"></label>
+                    <label>Linked In Profile Link:</label>
+                    <input class="form-control" type="text" name="linkedIn" value="<%=Det.linkedIn%>">
                 </div>
                 <div class="form-group">
-                    <label>GitHub Profile Link:<input class="form-control" type="text" name="github" value="<%=Det.github%>"></label>
+                    <label>GitHub Profile Link:</label>
+                    <input class="form-control" type="text" name="github" value="<%=Det.github%>">
                 </div>
                 <div style="align-self: center;" class="form-group">
-                    <input  class="btn btn-success btn-lg btn-block" type="submit">
+                    <input  class="btn btn-success" type="submit">
                 </div>
                 <hr>
             </form>

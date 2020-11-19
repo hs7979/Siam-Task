@@ -14,11 +14,22 @@ body{
     display:flex;
     flex-direction:column;
 }
+.nav-items {
+  display: block;
+  float: right;
+  margin-right: 10%;
+}
 footer{
     background: rgb(56, 56, 56);
     color:azure;
     padding:0.5em;
     margin-top:auto;
+    display: flex;
+}
+.footer-column {
+  width: 24%;
+  display: inline-block;
+  
 }
 .fa {
     padding: 8px;
@@ -49,7 +60,7 @@ footer{
   }
 
 .thumbnail{
-  background:rebeccapurple;
+  background: #007bb5;
   border-radius: 16px;
   width:80%;
   height:100%;
@@ -74,6 +85,8 @@ footer{
   margin-top: 20px;
   margin-bottom: 20px;
   border: ivory 2px solid;
+  border-radius: 16px;
+  padding: 5px 5px;
   background-color: #007bb5;
 }
 #shev{
@@ -85,4 +98,12 @@ pre{
 }
 p{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.timg2{
+  border: 4px solid white;
+  border-radius: 16px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
 }
