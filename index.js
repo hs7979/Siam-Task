@@ -1,6 +1,3 @@
-const { json } = require("body-parser");
-const { use } = require("passport");
-
 var express        = require("express"),
     mongoose       = require("mongoose"),
     app            = express(),
