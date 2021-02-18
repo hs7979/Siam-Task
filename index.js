@@ -385,7 +385,7 @@ function isLoggedIn(req,res,next){
     }
     res.redirect("/login");
 }
-app.listen (process.env,process.port,()=>{});
+app.listen (process.env.port,()=>{});
 // app.listen("2000",function(){
 //     console.log("Assignment has started");
 // })
