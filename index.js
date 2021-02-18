@@ -11,7 +11,7 @@ var express        = require("express"),
     user           = require("./models/user");
 
 //     mongoose.connect("mongodb://localhost/siamtaskv4new",{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false });
-mongoose.connect("mongodb+srv://Harshit:Q12h89qSgmY7Uyoz@task.h45ca.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false });
+mongoose.connect("mongodb+srv://Harshit:Q12h89qSgmY7Uyoz@task.h45ca.mongodb.net/Task?retryWrites=true&w=majority",{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false });
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/public'));
