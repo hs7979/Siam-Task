@@ -382,7 +382,7 @@ function isLoggedIn(req,res,next){
     }
     res.redirect("/login");
 }
-app.listen (process.env.PORT,process.env.IP,()=>{});
-// app.listen("2000",function(){
-//     console.log("Assignment has started");
-// })
+var PORT = process.env.PORT || 3000;
+app.listen(PORT,()=>{
+    console.log("Started");
+})
